@@ -4,19 +4,17 @@ let books = require("./booksdb.js");
 const regd_users = express.Router();
 
 let users = [];
-let userDB = {}; // Database to store registered users
+let userDB = {};
 
-const isValid = (username)=>{ //returns boolean
-    // Check if username exists in userDB
+const isValid = (username)=>{
     return userDB.hasOwnProperty(username);
 }
 
-const authenticatedUser = (username,password)=>{ //returns boolean
-    // Check if username and password match the one we have in records
+const authenticatedUser = (username,password)=>{
     return userDB[username] && userDB[username].password === password;
 }
 
-//only registered users can login
+
 regd_users.post("/login", (req,res) => {
     const {username, password} = req.body;
     if (userDB[username] && userDB[username].password === password) {
