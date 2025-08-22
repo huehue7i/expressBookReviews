@@ -4,13 +4,16 @@ let books = require("./booksdb.js");
 const regd_users = express.Router();
 
 let users = [];
+let userDB = {}; // Database to store registered users
 
 const isValid = (username)=>{ //returns boolean
-//write code to check is the username is valid
+    // Check if username exists in userDB
+    return userDB.hasOwnProperty(username);
 }
 
 const authenticatedUser = (username,password)=>{ //returns boolean
-//write code to check if username and password match the one we have in records.
+    // Check if username and password match the one we have in records
+    return userDB[username] && userDB[username].password === password;
 }
 
 //only registered users can login
@@ -53,3 +56,4 @@ regd_users.delete('/auth/review/:isbn', (req, res) => {
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
 module.exports.users = users;
+module.exports.userDB = userDB;
